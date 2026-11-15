@@ -15,7 +15,17 @@ pipeline {
             steps {
                 sh '''
                     . .venv/bin/activate
-                    pytest
+                    coverage run -m pytest
+                '''
+            }
+        }
+        stage('Reports') {
+            steps {
+                sh '''
+                    . .venv/bin/activate
+                    coverage report
+                    coverage xml
+                    coverage html
                 '''
             }
         }
